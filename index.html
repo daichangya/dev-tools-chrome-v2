@@ -4,17 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DevUtils Pro</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
         theme: {
           extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
             colors: {
-              slate: {
-                750: '#2d3748',
-                850: '#1a202c',
-                950: '#0d1117',
+              space: {
+                800: '#1e293b',
+                900: '#0f172a',
+                950: '#020617', 
+              },
+              neon: {
+                blue: '#3b82f6',
+                purple: '#8b5cf6',
+                cyan: '#06b6d4',
               }
+            },
+            backgroundImage: {
+              'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
+              'radial-highlight': "radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%)"
+            },
+            boxShadow: {
+              'glow': '0 0 15px rgba(59, 130, 246, 0.3)',
+              'glow-sm': '0 0 8px rgba(59, 130, 246, 0.2)',
             }
           }
         }
@@ -30,9 +52,34 @@
   }
 }
 </script>
+<style>
+  /* Custom Scrollbar for Webkit */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+  .glass {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .input-focus-glow:focus {
+    box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2), 0 0 10px rgba(6, 182, 212, 0.1);
+  }
+</style>
 </head>
-  <body class="bg-slate-950 text-slate-200 antialiased overflow-hidden">
+  <body class="bg-space-950 text-slate-200 antialiased overflow-hidden selection:bg-neon-cyan selection:text-space-950">
     <!-- Fixed width and height for Chrome Extension Popup (Max 800x600) -->
-    <div id="root" class="w-[780px] h-[580px] flex flex-col"></div>
+    <div id="root" class="w-[780px] h-[580px] flex flex-col relative bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')]"></div>
   </body>
 </html>

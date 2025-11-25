@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "DevUtils Pro",
+  "version": "1.0.0",
+  "description": "集成 JSON 格式化、文本加密、Base64 转换、AI 辅助生成等多功能的开发者工具箱。",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "DevUtils Pro"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

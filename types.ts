@@ -15,6 +15,7 @@ export enum ToolId {
   TEXT_ICON = 'texticongenerator',
   BASE64_IMAGE = 'base64imageconverter',
   JSON_TO_JAVA = 'jsontojavabean',
+  TIME_CONVERTER = 'timeconverter',
 }
 
 export enum Category {

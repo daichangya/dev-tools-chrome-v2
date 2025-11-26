@@ -1,9 +1,24 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize Gemini Client
-// Note: In a real Chrome Extension, keys might be stored in sync storage. 
-// Here we assume environment availability as per instructions.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Retrieve API Key safely for both Node/Webpack (process.env) and Vite (import.meta.env) environments
+const getApiKey = () => {
+  if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+    return process.env.API_KEY;
+  }
+  // Safe check for Vite environment
+  try {
+    // @ts-ignore
+    if (import.meta && import.meta.env && import.meta.env.VITE_API_KEY) {
+      // @ts-ignore
+      return import.meta.env.VITE_API_KEY;
+    }
+  } catch (e) {
+    // Ignore error if import.meta is not available
+  }
+  return '';
+};
+
+const ai = new GoogleGenAI({ apiKey: getApiKey() });
 
 export const generateAsciiArt = async (text: string): Promise<string> => {
   if (!text.trim()) return '';
@@ -27,28 +42,8 @@ export const generateAsciiArt = async (text: string): Promise<string> => {
 };
 
 export const generateJavaBean = async (jsonString: string, className: string = "Root"): Promise<string> => {
-  if (!jsonString.trim()) return '';
-
-  try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
-      contents: `Convert the following JSON into a valid Java Bean (POJO) class structure.
-      Root class name: ${className}.
-      Includes getters, setters, and toString().
-      Use private fields.
-      Handle nested objects by creating inner static classes or appropriate structure.
-      
-      JSON:
-      ${jsonString}
-      
-      Return ONLY the Java code. Do not include markdown backticks.`,
-    });
-
-    let output = response.text || '';
-    output = output.replace(/^```java\n/i, '').replace(/\n```$/, '');
-    return output;
-  } catch (error) {
-    console.error("Gemini JavaBean Generation Error:", error);
-    return "// Error generating Java Code. Ensure valid JSON input.";
-  }
+  // Use algorithmic local generation instead of AI as per previous request to ensure determinism
+  // This function is kept for backward compatibility signature but redirects to error or could call local logic if imported.
+  // Ideally, consumers should call utils/toolLogic directly.
+  return "// Please use the Local Logic version in utils/toolLogic.ts"; 
 };

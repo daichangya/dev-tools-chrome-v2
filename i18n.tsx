@@ -28,6 +28,7 @@ const translations = {
       [ToolId.TEXT_ICON]: { name: 'Text Icon Gen', desc: 'Create simple text icons' },
       [ToolId.BASE64_IMAGE]: { name: 'Base64 Image', desc: 'Image to Base64 and back' },
       [ToolId.JSON_TO_JAVA]: { name: 'JSON to Java', desc: 'JSON to Java Bean POJO' },
+      [ToolId.TIME_CONVERTER]: { name: 'Time Converter', desc: 'Timestamp & Date conversion' },
     },
     common: {
       input: 'Input',
@@ -65,6 +66,12 @@ const translations = {
       clickUpload: 'Click to Upload Image',
       orPaste: 'or paste Base64 string here...',
       preview: 'Preview',
+      timeCurrent: 'Current Time',
+      timestamp: 'Unix Timestamp (ms)',
+      dateIso: 'Date (ISO 8601)',
+      setNow: 'Set to Now',
+      toLocal: 'To Local Date',
+      toTimestamp: 'To Timestamp',
     }
   },
   zh: {
@@ -91,6 +98,7 @@ const translations = {
       [ToolId.TEXT_ICON]: { name: '文字图标生成', desc: '生成简单文字图标' },
       [ToolId.BASE64_IMAGE]: { name: 'Base64 图片', desc: '图片与 Base64 互转' },
       [ToolId.JSON_TO_JAVA]: { name: 'JSON 转 Java', desc: 'JSON 转 Java 实体类' },
+      [ToolId.TIME_CONVERTER]: { name: '时间转换', desc: '时间戳与日期互转' },
     },
     common: {
       input: '输入',
@@ -128,6 +136,12 @@ const translations = {
       clickUpload: '点击上传图片',
       orPaste: '或在此粘贴 Base64...',
       preview: '预览',
+      timeCurrent: '当前时间',
+      timestamp: 'Unix 时间戳 (毫秒)',
+      dateIso: '日期字符串 (ISO 8601)',
+      setNow: '设为现在',
+      toLocal: '转日期',
+      toTimestamp: '转时间戳',
     }
   }
 };

@@ -7,3 +7,4 @@ export * from './AsciiArt';
 export * from './JsonToJava';
 export * from './TextIcon';
 export * from './Base64Image';
+export * from './TimeConverter';

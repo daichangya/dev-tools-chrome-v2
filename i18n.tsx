@@ -6,205 +6,186 @@ type Language = 'en' | 'zh';
 const translations = {
   en: {
     title: 'DevUtils Pro',
-    categories: {
-      [Category.FORMAT]: 'Formatters',
-      [Category.CONVERT]: 'Converters',
-      [Category.GENERATE]: 'Generators',
-      [Category.COMPARE]: 'Comparators',
-      [Category.UTILS]: 'Utilities',
-    },
-    tools: {
-      [ToolId.JSON_FORMATTER]: { name: 'JSON Formatter', desc: 'Prettify and validate JSON' },
-      [ToolId.XML_FORMATTER]: { name: 'XML Formatter', desc: 'Prettify XML strings' },
-      [ToolId.TEXT_ENCRYPTION]: { name: 'Text Encryption', desc: 'Simple text encryption/decryption' },
-      [ToolId.BASE64_CONVERTER]: { name: 'Base64 Converter', desc: 'Encode and decode Base64' },
-      [ToolId.CASE_CONVERTER]: { name: 'Case Converter', desc: 'Upper, lower, and capital case' },
-      [ToolId.TEXT_TO_ASCII]: { name: 'Text to ASCII', desc: 'Text to Binary/ASCII values' },
-      [ToolId.TEXT_TO_UNICODE]: { name: 'Text to Unicode', desc: 'Text to Unicode escape sequences' },
-      [ToolId.DIFF_VIEWER]: { name: 'Diff Viewer', desc: 'Compare Text or JSON' },
-      [ToolId.STRING_REVERSER]: { name: 'String Reverser', desc: 'Reverse text characters' },
-      [ToolId.ASCII_ART]: { name: 'ASCII Art Gen', desc: 'AI Powered ASCII Art' },
-      [ToolId.TEXT_ICON]: { name: 'Text Icon Gen', desc: 'Create simple text icons' },
-      [ToolId.BASE64_IMAGE]: { name: 'Base64 Image', desc: 'Image to Base64 and back' },
-      [ToolId.JSON_TO_JAVA]: { name: 'JSON to Java', desc: 'JSON to Java Bean POJO' },
-      [ToolId.TIME_CONVERTER]: { name: 'Time Converter', desc: 'Timestamp & Date conversion' },
-    },
     common: {
-      input: 'Input',
-      output: 'Output',
-      result: 'Result',
-      generate: 'Generate',
-      processing: 'Processing...',
-      error: 'Error',
-      copy: 'Copy',
-      download: 'Download',
-      upload: 'Upload File',
-      paste: 'Paste',
-      compress: 'Compress',
       clear: 'Clear',
+      compress: 'Compress',
+      copy: 'Copy',
       copied: 'Copied!',
+      result: 'Result',
+      upload: 'Upload File',
+      input: 'Input',
+      processing: 'Processing...',
+      generate: 'Generate',
+      output: 'Output',
+      download: 'Download',
+      friendLink: 'Friend Link: JSDiff Blog',
     },
     ui: {
-      formatJson: 'Format JSON',
-      formatXml: 'Format XML',
       originalJson: 'Original JSON',
       formattedJson: 'Formatted JSON',
+      formatXml: 'Format XML',
+      fileUploaded: 'File Uploaded',
       encode: 'Encode',
       decode: 'Decode',
-      fileUploaded: 'File Uploaded',
-      upper: 'UPPERCASE',
-      lower: 'lowercase',
+      inputText: 'Input Text',
+      upper: 'UPPER',
+      lower: 'lower',
       capital: 'Capitalize',
       encrypt: 'Encrypt',
       decrypt: 'Decrypt',
-      diffOriginal: 'Original',
-      diffModified: 'Modified',
-      diffNoChanges: 'No differences found.',
-      inputText: 'Input Text',
-      className: 'Class Name',
-      javaCode: 'Java Bean (POJO)',
-      textColor: 'Text Color',
-      bgColor: 'Background Color',
-      clickUpload: 'Click to Upload Image',
-      orPaste: 'or paste Base64 string here...',
-      preview: 'Preview',
-      timeCurrent: 'Current Time',
-      timestamp: 'Unix Timestamp (ms)',
-      dateIso: 'Date (ISO 8601)',
-      setNow: 'Set to Now',
-      toLocal: 'To Local Date',
-      toTimestamp: 'To Timestamp',
-      compareMode: 'Compare Mode',
+      compareMode: 'Mode',
       diffModeJson: 'JSON',
       diffModeChars: 'Chars',
       diffModeWords: 'Words',
       diffModeLines: 'Lines',
       diffModePatch: 'Patch',
+      diffOriginal: 'Original',
+      diffModified: 'Modified',
+      diffNoChanges: 'No changes found.',
+      className: 'Class Name',
+      javaCode: 'Java Code',
+      textColor: 'Text Color',
+      bgColor: 'Background',
+      clickUpload: 'Click to Upload',
+      orPaste: 'Or paste Base64 string here...',
+      preview: 'Preview',
+      timeCurrent: 'Current Time',
+      timestamp: 'Timestamp',
+      setNow: 'Set Now',
+      dateIso: 'Date (ISO)',
+      searchTools: 'Search tools...'
+    },
+    categories: {
+      [Category.FORMAT]: 'Format',
+      [Category.CONVERT]: 'Convert',
+      [Category.GENERATE]: 'Generate',
+      [Category.COMPARE]: 'Compare',
+      [Category.UTILS]: 'Utilities'
+    },
+    tools: {
+      [ToolId.JSON_FORMATTER]: 'JSON Formatter',
+      [ToolId.XML_FORMATTER]: 'XML Formatter',
+      [ToolId.TIME_CONVERTER]: 'Time Converter',
+      [ToolId.TEXT_ENCRYPTION]: 'Text Encryption',
+      [ToolId.BASE64_CONVERTER]: 'Base64 Converter',
+      [ToolId.CASE_CONVERTER]: 'Case Converter',
+      [ToolId.TEXT_TO_ASCII]: 'Text to ASCII',
+      [ToolId.TEXT_TO_UNICODE]: 'Text to Unicode',
+      [ToolId.DIFF_VIEWER]: 'Diff Viewer',
+      [ToolId.STRING_REVERSER]: 'String Reverser',
+      [ToolId.ASCII_ART]: 'ASCII Art Gen',
+      [ToolId.TEXT_ICON]: 'Text Icon Gen',
+      [ToolId.BASE64_IMAGE]: 'Base64 Image',
+      [ToolId.JSON_TO_JAVA]: 'JSON to Java',
     }
   },
   zh: {
     title: 'DevUtils Pro',
-    categories: {
-      [Category.FORMAT]: '格式化',
-      [Category.CONVERT]: '转换器',
-      [Category.GENERATE]: '生成器',
-      [Category.COMPARE]: '比较',
-      [Category.UTILS]: '工具',
-    },
-    tools: {
-      [ToolId.JSON_FORMATTER]: { name: 'JSON 格式化', desc: '美化并验证 JSON' },
-      [ToolId.XML_FORMATTER]: { name: 'XML 格式化', desc: '美化 XML 字符串' },
-      [ToolId.TEXT_ENCRYPTION]: { name: '文本加密', desc: '简单的文本加密/解密' },
-      [ToolId.BASE64_CONVERTER]: { name: 'Base64 转换', desc: 'Base64 编码与解码' },
-      [ToolId.CASE_CONVERTER]: { name: '大小写转换', desc: '大写、小写、首字母大写' },
-      [ToolId.TEXT_TO_ASCII]: { name: '文本转 ASCII', desc: '文本转二进制/ASCII' },
-      [ToolId.TEXT_TO_UNICODE]: { name: '文本转 Unicode', desc: '文本转 Unicode 编码' },
-      [ToolId.DIFF_VIEWER]: { name: '差异比较', desc: '比较文本或 JSON 差异' },
-      [ToolId.STRING_REVERSER]: { name: '字符串翻转', desc: '反转文本字符' },
-      [ToolId.ASCII_ART]: { name: 'ASCII 艺术生成', desc: 'AI 生成 ASCII 艺术' },
-      [ToolId.TEXT_ICON]: { name: '文字图标生成', desc: '生成简单文字图标' },
-      [ToolId.BASE64_IMAGE]: { name: 'Base64 图片', desc: '图片与 Base64 互转' },
-      [ToolId.JSON_TO_JAVA]: { name: 'JSON 转 Java', desc: 'JSON 转 Java 实体类' },
-      [ToolId.TIME_CONVERTER]: { name: '时间转换', desc: '时间戳与日期互转' },
-    },
     common: {
-      input: '输入',
-      output: '输出',
-      result: '结果',
-      generate: '生成',
-      processing: '处理中...',
-      error: '错误',
-      copy: '复制',
-      download: '下载',
-      upload: '上传文件',
-      paste: '粘贴',
-      compress: '压缩',
       clear: '清空',
+      compress: '压缩',
+      copy: '复制',
       copied: '已复制',
+      result: '结果',
+      upload: '上传文件',
+      input: '输入',
+      processing: '处理中...',
+      generate: '生成',
+      output: '输出',
+      download: '下载',
+      friendLink: '友情链接: JSDiff 博客',
     },
     ui: {
-      formatJson: '格式化 JSON',
-      formatXml: '格式化 XML',
       originalJson: '原始 JSON',
-      formattedJson: '格式化结果',
+      formattedJson: '格式化 JSON',
+      formatXml: '格式化 XML',
+      fileUploaded: '文件已上传',
       encode: '编码',
       decode: '解码',
-      fileUploaded: '文件已上传',
+      inputText: '输入文本',
       upper: '大写',
       lower: '小写',
       capital: '首字母大写',
       encrypt: '加密',
       decrypt: '解密',
+      compareMode: '模式',
+      diffModeJson: 'JSON',
+      diffModeChars: '字符',
+      diffModeWords: '单词',
+      diffModeLines: '行',
+      diffModePatch: '补丁',
       diffOriginal: '原始文本',
-      diffModified: '修改后文本',
-      diffNoChanges: '未发现差异。',
-      inputText: '输入文本',
+      diffModified: '修改文本',
+      diffNoChanges: '未发现差异',
       className: '类名',
-      javaCode: 'Java Bean 代码',
+      javaCode: 'Java 代码',
       textColor: '文字颜色',
       bgColor: '背景颜色',
       clickUpload: '点击上传图片',
-      orPaste: '或在此粘贴 Base64...',
+      orPaste: '或在此粘贴 Base64 字符串...',
       preview: '预览',
       timeCurrent: '当前时间',
-      timestamp: 'Unix 时间戳 (毫秒)',
-      dateIso: '日期字符串 (ISO 8601)',
-      setNow: '设为现在',
-      toLocal: '转日期',
-      toTimestamp: '转时间戳',
-      compareMode: '比较模式',
-      diffModeJson: 'JSON 对象',
-      diffModeChars: '逐字符',
-      diffModeWords: '逐单词',
-      diffModeLines: '逐行',
-      diffModePatch: 'Patch 补丁',
+      timestamp: '时间戳',
+      setNow: '设为当前',
+      dateIso: '日期 (ISO)',
+      searchTools: '搜索工具...'
+    },
+    categories: {
+      [Category.FORMAT]: '格式化',
+      [Category.CONVERT]: '转换',
+      [Category.GENERATE]: '生成',
+      [Category.COMPARE]: '比较',
+      [Category.UTILS]: '工具'
+    },
+    tools: {
+      [ToolId.JSON_FORMATTER]: 'JSON 格式化',
+      [ToolId.XML_FORMATTER]: 'XML 格式化',
+      [ToolId.TIME_CONVERTER]: '时间戳转换',
+      [ToolId.TEXT_ENCRYPTION]: '文本加密',
+      [ToolId.BASE64_CONVERTER]: 'Base64 转换',
+      [ToolId.CASE_CONVERTER]: '大小写转换',
+      [ToolId.TEXT_TO_ASCII]: 'ASCII 编码',
+      [ToolId.TEXT_TO_UNICODE]: 'Unicode 转换',
+      [ToolId.DIFF_VIEWER]: '文本比对',
+      [ToolId.STRING_REVERSER]: '字符串翻转',
+      [ToolId.ASCII_ART]: 'ASCII 艺术字',
+      [ToolId.TEXT_ICON]: '文字图标生成',
+      [ToolId.BASE64_IMAGE]: '图片 Base64',
+      [ToolId.JSON_TO_JAVA]: 'JSON 转 Java',
     }
   }
 };
 
-type I18nContextType = {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
-};
-
-const I18nContext = createContext<I18nContextType | undefined>(undefined);
+const I18nContext = createContext<any>(null);
 
 export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
+  // Auto-detect language
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('app_language');
-    return (saved === 'en' || saved === 'zh') ? saved : 'zh'; // Default to Chinese as per request
+     const saved = localStorage.getItem('devutils-lang');
+     if (saved === 'en' || saved === 'zh') return saved;
+     return navigator.language.startsWith('zh') ? 'zh' : 'en';
   });
 
   useEffect(() => {
-    localStorage.setItem('app_language', language);
+    localStorage.setItem('devutils-lang', language);
+    document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
   }, [language]);
 
-  const t = (path: string): string => {
+  const t = (path: string) => {
     const keys = path.split('.');
     let current: any = translations[language];
-    
-    for (const key of keys) {
-      if (current[key] === undefined) {
-        console.warn(`Missing translation for key: ${path} in language: ${language}`);
-        return path;
-      }
-      current = current[key];
+    for (const k of keys) {
+      if (current[k] === undefined) return path;
+      current = current[k];
     }
-    return current as string;
+    return current;
   };
 
   return (
-    <I18nContext.Provider value={{ language, setLanguage, t }}>
+    <I18nContext.Provider value={{ t, language, setLanguage }}>
       {children}
     </I18nContext.Provider>
   );
 };
 
-export const useI18n = () => {
-  const context = useContext(I18nContext);
-  if (!context) {
-    throw new Error('useI18n must be used within an I18nProvider');
-  }
-  return context;
-};
+export const useI18n = () => useContext(I18nContext);

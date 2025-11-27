@@ -16,6 +16,7 @@ const TypeIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height
 const SparkleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"></path></svg>;
 const DiffIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 13h6"></path><path d="M12 10v6"></path><path d="M5 21h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2z"></path></svg>;
 const ClockIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>;
+const AppIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>;
 
 const TOOLS: ToolDefinition[] = [
   { id: ToolId.JSON_FORMATTER, icon: <CodeIcon />, category: Category.FORMAT },
@@ -65,87 +66,100 @@ export default function App() {
       case ToolId.TEXT_ICON: return <Tools.TextIconGenerator />;
       case ToolId.BASE64_IMAGE: return <Tools.Base64ImageConverter />;
       case ToolId.JSON_TO_JAVA: return <Tools.JsonToJavaView />;
-      default: return <div className="p-10 text-center text-slate-500">Tool not implemented</div>;
+      default: return <Tools.JsonFormatterView />;
     }
   };
 
   return (
-    // Conditional Layout: 
-    // If extension: Fixed dimensions (w-[780px] h-[580px])
-    // If Web/Vercel: Full screen (w-screen h-screen)
-    <div className={`flex flex-row bg-space-950 text-slate-200 font-sans relative ${isExtension ? 'w-[780px] h-[580px]' : 'w-screen h-screen'}`}>
-      
-      {/* Background Radial Glow */}
-      <div className="absolute top-0 left-0 w-full h-full bg-radial-highlight pointer-events-none opacity-50 z-0"></div>
-
+    <div className="flex h-screen w-screen bg-space-950 text-slate-200 overflow-hidden font-sans">
       {/* Sidebar */}
-      <div className="w-64 bg-space-900/80 backdrop-blur-xl border-r border-slate-800/60 flex flex-col flex-shrink-0 z-10 shadow-2xl">
-        <div className="p-5 border-b border-slate-800/60 flex justify-between items-center relative overflow-hidden group">
-           {/* Decorative Overlay - pointer-events-none essential */}
-           <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none"></div>
-           
-           <h1 className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent relative z-10 tracking-tight flex items-center gap-2">
-            <span className="text-2xl">⚡</span>
-            <span>DevUtils</span>
+      <aside className="w-64 flex flex-col border-r border-slate-800 bg-space-900/50 backdrop-blur-md z-10 shrink-0">
+        {/* Header */}
+        <div className="p-4 flex items-center gap-3 border-b border-slate-800/50 bg-space-950/20">
+           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <AppIcon />
+           </div>
+           <h1 className="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+             {t('title')}
            </h1>
+        </div>
+
+        {/* Tool List */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-6">
+           {categories.map(cat => (
+             <div key={cat}>
+                <h3 className="text-[10px] uppercase font-bold text-slate-500 mb-2 px-2 tracking-wider">{t(`categories.${cat}`)}</h3>
+                <div className="space-y-0.5">
+                   {TOOLS.filter(tool => tool.category === cat).map(tool => (
+                     <button
+                       key={tool.id}
+                       onClick={() => setActiveToolId(tool.id)}
+                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 group relative overflow-hidden ${
+                         activeToolId === tool.id 
+                           ? 'bg-gradient-to-r from-blue-600/20 to-cyan-600/20 text-cyan-300 shadow-glow-sm border border-blue-500/20' 
+                           : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'
+                       }`}
+                     >
+                       {/* Active Indicator */}
+                       {activeToolId === tool.id && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-1/2 bg-cyan-400 rounded-full shadow-[0_0_8px_cyan]"></div>}
+                       
+                       <span className={`${activeToolId === tool.id ? 'text-cyan-400' : 'text-slate-500 group-hover:text-slate-300'}`}>
+                         {tool.icon}
+                       </span>
+                       <span className="truncate">{t(`tools.${tool.id}`)}</span>
+                     </button>
+                   ))}
+                </div>
+             </div>
+           ))}
+        </div>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-slate-800 bg-space-950/30 flex flex-col gap-3">
+           <a 
+              href="http://blog.jsdiff.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs text-slate-500 hover:text-neon-cyan transition-colors group"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:stroke-neon-cyan"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+              {t('common.friendLink')}
+           </a>
 
            <button 
-             onClick={() => setLanguage(language === 'en' ? 'zh' : 'en')}
-             className="relative z-20 px-2 py-1 text-[10px] font-bold bg-slate-800 border border-slate-700 rounded text-slate-400 hover:text-white hover:border-cyan-500 transition-all uppercase tracking-wider"
+             onClick={() => setLanguage(l => l === 'en' ? 'zh' : 'en')}
+             className="flex items-center justify-between w-full px-3 py-2 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 transition-colors"
            >
-             {language === 'en' ? 'ZH' : 'EN'}
+             <span>Language</span>
+             <span className="font-bold bg-slate-900 px-1.5 py-0.5 rounded text-[10px] text-cyan-400">
+               {language === 'en' ? 'EN' : '中文'}
+             </span>
            </button>
         </div>
+      </aside>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-6 custom-scrollbar">
-          {categories.map(cat => (
-            <div key={cat}>
-              <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 pl-2 flex items-center gap-2">
-                {t(`categories.${cat}`)}
-                <div className="h-[1px] bg-slate-800 flex-1"></div>
-              </h3>
-              <div className="space-y-1">
-                {TOOLS.filter(tool => tool.category === cat).map(tool => (
-                  <button
-                    key={tool.id}
-                    onClick={() => setActiveToolId(tool.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 relative group ${
-                      activeToolId === tool.id 
-                        ? 'bg-gradient-to-r from-cyan-900/30 to-blue-900/30 text-cyan-400 shadow-glow-sm border border-cyan-500/20' 
-                        : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
-                    }`}
-                  >
-                    {activeToolId === tool.id && (
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-1/2 bg-cyan-400 rounded-r shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
-                    )}
-                    <span className="relative z-10 opacity-90 group-hover:scale-110 transition-transform duration-300">{tool.icon}</span>
-                    <span className="relative z-10 font-medium truncate">{t(`tools.${tool.id}.name`)}</span>
-                  </button>
-                ))}
-              </div>
+      {/* Main Area */}
+      <main className="flex-1 flex flex-col min-w-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-space-900 via-space-950 to-space-950">
+         {/* Main Content */}
+         <div className="flex-1 p-6 overflow-hidden">
+            <div className="h-full max-w-6xl mx-auto flex flex-col gap-4">
+               <header className="flex items-center justify-between pb-4 border-b border-slate-800/50">
+                  <div>
+                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                      {activeTool.icon}
+                      {t(`tools.${activeTool.id}`)}
+                    </h2>
+                    <p className="text-xs text-slate-500 mt-1">
+                      {t(`categories.${activeTool.category}`)} • {isExtension ? 'Extension Mode' : 'Web Mode'}
+                    </p>
+                  </div>
+               </header>
+               <div className="flex-1 min-h-0 relative">
+                  {renderContent()}
+               </div>
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0 z-10 bg-gradient-to-br from-transparent to-space-950/50">
-        <div className="h-16 border-b border-slate-800/60 flex items-center px-8 justify-between bg-space-900/30 backdrop-blur-md">
-           <div className="flex flex-col">
-              <h2 className="text-lg font-semibold text-slate-100 flex items-center gap-2">
-                {t(`tools.${activeTool.id}.name`)}
-                <span className="text-slate-600 text-sm font-normal hidden sm:inline-block">/</span>
-                <span className="text-slate-500 text-xs font-normal uppercase tracking-wider border border-slate-700/50 px-1.5 py-0.5 rounded hidden sm:inline-block">{t(`categories.${activeTool.category}`)}</span>
-              </h2>
-              <p className="text-xs text-slate-500 truncate max-w-[400px]">{t(`tools.${activeTool.id}.desc`)}</p>
-           </div>
-        </div>
-        <div className="flex-1 p-6 overflow-hidden">
-          <div className="h-full w-full max-w-5xl mx-auto animate-[fadeIn_0.3s_ease-out]">
-             {renderContent()}
-          </div>
-        </div>
-      </div>
+         </div>
+      </main>
     </div>
   );
 }

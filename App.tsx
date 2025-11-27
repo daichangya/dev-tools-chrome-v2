@@ -26,8 +26,7 @@ const TOOLS: ToolDefinition[] = [
   { id: ToolId.CASE_CONVERTER, icon: <TypeIcon />, category: Category.CONVERT },
   { id: ToolId.TEXT_TO_ASCII, icon: <TypeIcon />, category: Category.CONVERT },
   { id: ToolId.TEXT_TO_UNICODE, icon: <TypeIcon />, category: Category.CONVERT },
-  { id: ToolId.JSON_DIFF, icon: <DiffIcon />, category: Category.COMPARE },
-  { id: ToolId.TEXT_DIFF, icon: <DiffIcon />, category: Category.COMPARE },
+  { id: ToolId.DIFF_VIEWER, icon: <DiffIcon />, category: Category.COMPARE },
   { id: ToolId.STRING_REVERSER, icon: <TypeIcon />, category: Category.UTILS },
   { id: ToolId.ASCII_ART, icon: <SparkleIcon />, category: Category.GENERATE },
   { id: ToolId.TEXT_ICON, icon: <ImageIcon />, category: Category.GENERATE },
@@ -60,8 +59,7 @@ export default function App() {
       case ToolId.CASE_CONVERTER: return <Tools.StringToolsView tool={ToolId.CASE_CONVERTER} />;
       case ToolId.TEXT_TO_ASCII: return <Tools.ConverterView mode="ascii" />;
       case ToolId.TEXT_TO_UNICODE: return <Tools.ConverterView mode="unicode" />;
-      case ToolId.JSON_DIFF: return <Tools.DiffView type="json" />;
-      case ToolId.TEXT_DIFF: return <Tools.DiffView type="text" />;
+      case ToolId.DIFF_VIEWER: return <Tools.DiffView />;
       case ToolId.STRING_REVERSER: return <Tools.StringToolsView tool={ToolId.STRING_REVERSER} />;
       case ToolId.ASCII_ART: return <Tools.GeminiToolView tool={ToolId.ASCII_ART} />;
       case ToolId.TEXT_ICON: return <Tools.TextIconGenerator />;

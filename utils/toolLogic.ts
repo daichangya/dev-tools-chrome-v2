@@ -1,4 +1,5 @@
 
+
 // Helper logic for synchronous tools
 
 export const formatJson = (input: string): string => {
@@ -39,6 +40,45 @@ export const formatJson = (input: string): string => {
   return JSON.stringify(result, null, 2);
 };
 
+export const compressJson = (input: string): string => {
+  if (!input.trim()) return '';
+  try {
+    const obj = JSON.parse(input);
+    return JSON.stringify(obj);
+  } catch (e) {
+    return input; // Return original if invalid
+  }
+};
+
+export const highlightJson = (json: string): string => {
+  if (!json) return '';
+  
+  // Basic Regex tokenizer for JSON highlighting
+  return json.replace(
+    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+    function (match) {
+      let cls = 'number';
+      // Escape HTML entities to prevent injection
+      const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      
+      if (/^"/.test(match)) {
+        if (/:$/.test(match)) {
+          cls = 'key';
+          // Remove the colon from the match for the span, append it after
+          return `<span class="${cls}">${esc(match.slice(0, -1))}</span>:`;
+        } else {
+          cls = 'string';
+        }
+      } else if (/true|false/.test(match)) {
+        cls = 'boolean';
+      } else if (/null/.test(match)) {
+        cls = 'null';
+      }
+      return `<span class="${cls}">${esc(match)}</span>`;
+    }
+  );
+};
+
 export const formatXml = (xml: string): string => {
   let formatted = '';
   let indent = '';
@@ -49,6 +89,21 @@ export const formatXml = (xml: string): string => {
       if (node.match( /^<?\w[^>]*[^\/]$/ )) indent += tab;
   });
   return formatted.substring(1, formatted.length-3);
+};
+
+export const highlightXml = (xml: string): string => {
+  if (!xml) return '';
+  return xml.replace(/(&lt;|<)(.+?)(&gt;|>)/g, function(match, lt, content, gt) {
+     let inner = content;
+     // Highlight tag name
+     inner = inner.replace(/^(\/?[\w:-]+)/, '<span class="tag">$1</span>');
+     // Highlight attributes
+     inner = inner.replace(/(\s+)([\w:-]+)(=)/g, '$1<span class="attr-name">$2</span>$3');
+     // Highlight attribute values
+     inner = inner.replace(/(".*?")/g, '<span class="attr-value">$1</span>');
+     
+     return `${lt}${inner}${gt}`;
+  });
 };
 
 export const toBase64 = (input: string): string => {
@@ -97,26 +152,6 @@ export const convertCase = (text: string, type: 'upper' | 'lower' | 'capital'): 
   if (type === 'lower') return text.toLowerCase();
   if (type === 'capital') return text.toLowerCase().replace(/\b\w/g, s => s.toUpperCase());
   return text;
-};
-
-export const compareText = (text1: string, text2: string) => {
-  // Very basic line-by-line diff implementation
-  const lines1 = text1.split('\n');
-  const lines2 = text2.split('\n');
-  const maxLines = Math.max(lines1.length, lines2.length);
-  const diffs: { line: number, t1: string, t2: string, status: 'eq' | 'diff' }[] = [];
-
-  for (let i = 0; i < maxLines; i++) {
-    const t1 = lines1[i] || '';
-    const t2 = lines2[i] || '';
-    diffs.push({
-      line: i + 1,
-      t1,
-      t2,
-      status: t1 === t2 ? 'eq' : 'diff'
-    });
-  }
-  return diffs;
 };
 
 // --- JSON to JavaBean Logic ---
@@ -227,4 +262,27 @@ ${finalClass}`;
   } catch (e) {
     return "Parse Error: " + (e as Error).message;
   }
+};
+
+export const highlightJava = (code: string): string => {
+  if (!code) return '';
+  // Basic Regex tokenizer for Java
+  let html = code
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
+  // Keywords
+  html = html.replace(/\b(package|import|public|private|protected|class|static|void|return|new|int|double|boolean|String|List)\b/g, '<span class="keyword">$1</span>');
+  
+  // Annotations
+  html = html.replace(/(@\w+)/g, '<span class="annotation">$1</span>');
+  
+  // Strings
+  html = html.replace(/(".*?")/g, '<span class="string">$1</span>');
+
+  // Comments (simple // support)
+  html = html.replace(/(\/\/.*$)/gm, '<span class="comment">$1</span>');
+
+  return html;
 };

@@ -7,7 +7,7 @@ export const TextArea = ({ value, onChange, placeholder, readOnly = false, class
     <textarea
       className={`relative w-full h-full bg-space-900/90 border border-slate-700/50 text-slate-300 p-4 rounded-lg font-mono text-sm leading-relaxed
         focus:outline-none focus:border-neon-cyan/50 focus:ring-1 focus:ring-neon-cyan/50 input-focus-glow
-        resize-none transition-all duration-200 placeholder-slate-600
+        resize-none transition-all duration-200 placeholder-slate-600 custom-scrollbar
         ${readOnly ? 'bg-space-950/50 text-slate-400 cursor-text' : ''}`}
       value={value}
       onChange={(e) => onChange && onChange(e.target.value)}
@@ -15,6 +15,17 @@ export const TextArea = ({ value, onChange, placeholder, readOnly = false, class
       readOnly={readOnly}
       spellCheck={false}
     />
+  </div>
+);
+
+export const CodeViewer = ({ code, language, className = '' }: { code: string, language: 'json' | 'xml' | 'java', className?: string }) => (
+  <div className={`relative group flex-1 h-full overflow-hidden ${className}`}>
+     <div className="absolute -inset-0.5 bg-gradient-to-r from-slate-700 to-slate-800 rounded-lg opacity-50 transition duration-200 blur-[1px] pointer-events-none"></div>
+     <div 
+        className={`relative w-full h-full bg-space-950/80 border border-slate-700/50 p-4 rounded-lg font-mono text-sm leading-relaxed overflow-auto custom-scrollbar code-viewer syntax-${language}`}
+        dangerouslySetInnerHTML={{ __html: code }}
+     >
+     </div>
   </div>
 );
 

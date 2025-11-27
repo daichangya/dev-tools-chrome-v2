@@ -1,0 +1,31 @@
+/* Syntax Highlighting for Dark Theme */
+
+/* JSON */
+.syntax-json .key { color: #7dd3fc; } /* sky-300 */
+.syntax-json .string { color: #a5f3fc; } /* cyan-200 */
+.syntax-json .number { color: #f9a8d4; } /* pink-300 */
+.syntax-json .boolean { color: #86efac; } /* green-300 */
+.syntax-json .null { color: #94a3b8; } /* slate-400 */
+
+/* XML */
+.syntax-xml .tag { color: #7dd3fc; font-weight: bold; }
+.syntax-xml .attr-name { color: #c4b5fd; } /* violet-300 */
+.syntax-xml .attr-value { color: #a5f3fc; }
+.syntax-xml .content { color: #e2e8f0; }
+
+/* Java */
+.syntax-java .keyword { color: #c4b5fd; font-weight: bold; } /* violet-300 */
+.syntax-java .type { color: #7dd3fc; } /* sky-300 */
+.syntax-java .string { color: #a5f3fc; }
+.syntax-java .annotation { color: #fcd34d; } /* amber-300 */
+.syntax-java .comment { color: #64748b; font-style: italic; }
+
+/* General */
+.code-viewer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1.5;
+  tab-size: 2;
+  white-space: pre-wrap; /* Crucial for formatting */
+  word-break: break-all;
+}

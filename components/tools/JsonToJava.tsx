@@ -1,17 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { TextArea } from '../ui/Shared';
+import { TextArea, CodeViewer } from '../ui/Shared';
 import * as Logic from '../../utils/toolLogic';
 import { useI18n } from '../../i18n';
 
 export const JsonToJavaView = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [highlighted, setHighlighted] = useState('');
   const [className, setClassName] = useState('Root');
   const { t } = useI18n();
 
   useEffect(() => {
-    if (!input.trim()) { setOutput(''); return; }
-    setOutput(Logic.jsonToJavaBean(input, className));
+    if (!input.trim()) { 
+      setOutput(''); 
+      setHighlighted('');
+      return; 
+    }
+    const res = Logic.jsonToJavaBean(input, className);
+    setOutput(res);
+    
+    if (res.startsWith("Parse Error") || res.startsWith("Invalid")) {
+      setHighlighted(res);
+    } else {
+      setHighlighted(Logic.highlightJava(res));
+    }
   }, [input, className]);
 
   return (
@@ -31,7 +43,11 @@ export const JsonToJavaView = () => {
       </div>
       <div className="flex flex-col gap-2">
         <label className="text-xs uppercase text-slate-500 font-bold">{t('ui.javaCode')}</label>
-        <TextArea value={output} readOnly placeholder="// Java code will appear here" className="font-mono text-xs leading-5" />
+        {output && !output.startsWith("Parse Error") && !output.startsWith("Invalid") ? (
+           <CodeViewer code={highlighted} language="java" />
+        ) : (
+           <TextArea value={output} readOnly placeholder="// Java code will appear here" className="font-mono text-xs leading-5" />
+        )}
       </div>
     </div>
   );

@@ -53,7 +53,21 @@ const translations = {
       timestamp: 'Timestamp',
       setNow: 'Set Now',
       dateIso: 'Date (ISO)',
-      searchTools: 'Search tools...'
+      searchTools: 'Search tools...',
+      idCardName: 'Name',
+      idCardGender: 'Gender',
+      idCardEthnicity: 'Ethnicity',
+      idCardYear: 'Year',
+      idCardMonth: 'Month',
+      idCardDay: 'Day',
+      idCardAddress: 'Address',
+      idCardNumber: 'ID Number',
+      idCardAuthority: 'Authority',
+      idCardValidity: 'Validity',
+      idCardPhoto: 'Photo',
+      idCardTemplate: 'Template (Front+Back)',
+      idCardUploadTemplate: 'Upload ID Template',
+      idCardUploadPhoto: 'Upload Photo'
     },
     categories: {
       [Category.FORMAT]: 'Format',
@@ -77,6 +91,7 @@ const translations = {
       [ToolId.TEXT_ICON]: 'Text Icon Gen',
       [ToolId.BASE64_IMAGE]: 'Base64 Image',
       [ToolId.JSON_TO_JAVA]: 'JSON to Java',
+      [ToolId.ID_CARD_GENERATOR]: 'ID Card Generator',
     }
   },
   zh: {
@@ -128,7 +143,21 @@ const translations = {
       timestamp: '时间戳',
       setNow: '设为当前',
       dateIso: '日期 (ISO)',
-      searchTools: '搜索工具...'
+      searchTools: '搜索工具...',
+      idCardName: '姓名',
+      idCardGender: '性别',
+      idCardEthnicity: '民族',
+      idCardYear: '出生年份',
+      idCardMonth: '月',
+      idCardDay: '日',
+      idCardAddress: '住址',
+      idCardNumber: '公民身份号码',
+      idCardAuthority: '签发机关',
+      idCardValidity: '有效期限',
+      idCardPhoto: '头像照片',
+      idCardTemplate: '身份证模版 (含正反)',
+      idCardUploadTemplate: '上传身份证模版',
+      idCardUploadPhoto: '上传头像'
     },
     categories: {
       [Category.FORMAT]: '格式化',
@@ -152,13 +181,14 @@ const translations = {
       [ToolId.TEXT_ICON]: '文字图标生成',
       [ToolId.BASE64_IMAGE]: '图片 Base64',
       [ToolId.JSON_TO_JAVA]: 'JSON 转 Java',
+      [ToolId.ID_CARD_GENERATOR]: '身份证生成器',
     }
   }
 };
 
 const I18nContext = createContext<any>(null);
 
-export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
+export const I18nProvider = ({ children }: { children?: React.ReactNode }) => {
   // Auto-detect language
   const [language, setLanguage] = useState<Language>(() => {
      const saved = localStorage.getItem('devutils-lang');

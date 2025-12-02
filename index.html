@@ -8,85 +8,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
-            },
-            colors: {
-              space: {
-                800: '#1e293b',
-                900: '#0f172a',
-                950: '#020617', 
-              },
-              neon: {
-                blue: '#3b82f6',
-                purple: '#8b5cf6',
-                cyan: '#06b6d4',
-              }
-            },
-            backgroundImage: {
-              'grid-pattern': "linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px)",
-              'radial-highlight': "radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%)"
-            },
-            boxShadow: {
-              'glow': '0 0 15px rgba(59, 130, 246, 0.3)',
-              'glow-sm': '0 0 8px rgba(59, 130, 246, 0.2)',
-            }
-          }
-        }
-      }
-    </script>
   <script type="importmap">
 {
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.6",
+    "path": "https://aistudiocdn.com/path@^0.12.7",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "diff": "https://aistudiocdn.com/diff@^5.2.0"
+    "diff": "https://aistudiocdn.com/diff@^8.0.2"
   }
 }
 </script>
-<style>
-  /* Custom Scrollbar for Webkit */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #334155;
-    border-radius: 3px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #475569;
-  }
-  .glass {
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-  .input-focus-glow:focus {
-    box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.2), 0 0 10px rgba(6, 182, 212, 0.1);
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes shimmer {
-    100% { transform: translateX(100%); }
-  }
-</style>
 </head>
   <body class="bg-space-950 text-slate-200 antialiased overflow-hidden selection:bg-neon-cyan selection:text-space-950">
-    <div id="root"></div>
+    <!-- Fixed size for Chrome Extension Popup -->
+    <div id="root" class="w-[800px] h-[600px]"></div>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

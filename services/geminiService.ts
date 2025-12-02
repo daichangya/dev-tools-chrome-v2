@@ -1,24 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Retrieve API Key safely for both Node/Webpack (process.env) and Vite (import.meta.env) environments
-const getApiKey = () => {
-  if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
-    return process.env.API_KEY;
-  }
-  // Safe check for Vite environment
-  try {
-    // @ts-ignore
-    if (import.meta && import.meta.env && import.meta.env.VITE_API_KEY) {
-      // @ts-ignore
-      return import.meta.env.VITE_API_KEY;
-    }
-  } catch (e) {
-    // Ignore error if import.meta is not available
-  }
-  return '';
-};
-
-const ai = new GoogleGenAI({ apiKey: getApiKey() });
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateAsciiArt = async (text: string): Promise<string> => {
   if (!text.trim()) return '';

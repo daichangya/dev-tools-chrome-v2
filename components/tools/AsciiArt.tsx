@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import { TextArea, Button } from '../ui/Shared';
-import { ToolId } from '../../types';
-import * as GeminiService from '../../services/geminiService';
-import { useI18n } from '../../i18n';
 
-export const GeminiToolView = ({ tool }: { tool: ToolId }) => {
+import React, { useState, useEffect } from 'react';
+import { TextArea, Button } from '../ui/Shared';
+import { useI18n } from '../../i18n';
+import { generateLocalAscii } from '../../utils/asciiFonts';
+
+export const AsciiArtGenerator = () => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
-  const [loading, setLoading] = useState(false);
   const { t } = useI18n();
 
-  const handleGenerate = async () => {
-    setLoading(true);
-    if (tool === ToolId.ASCII_ART) {
-      const res = await GeminiService.generateAsciiArt(input);
-      setOutput(res);
+  useEffect(() => {
+    if (!input) {
+      setOutput('');
+      return;
     }
-    setLoading(false);
+    // Instant local generation
+    const res = generateLocalAscii(input);
+    setOutput(res);
+  }, [input]);
+
+  const handleCopy = () => {
+    if (output) {
+      navigator.clipboard.writeText(output);
+    }
   };
 
   return (
@@ -25,18 +31,27 @@ export const GeminiToolView = ({ tool }: { tool: ToolId }) => {
         <label className="text-xs uppercase text-slate-500 font-bold tracking-wider">
           {t('common.input')}
         </label>
-        <TextArea value={input} onChange={setInput} placeholder={t('ui.inputText')} />
+        <TextArea 
+          value={input} 
+          onChange={setInput} 
+          placeholder={t('ui.inputText')} 
+        />
       </div>
       
-      <div className="flex justify-end">
-        <Button onClick={handleGenerate} disabled={loading || !input} className="w-32">
-          {loading ? t('common.processing') : t('common.generate')}
+      <div className="flex justify-between items-center">
+        <span className="text-xs text-slate-500">Local Generation (No AI)</span>
+        <Button onClick={handleCopy} disabled={!output} className="w-32">
+          {t('common.copy')}
         </Button>
       </div>
 
       <div className="flex-1 flex flex-col gap-2 min-h-0">
          <label className="text-xs uppercase text-slate-500 font-bold tracking-wider">{t('common.output')}</label>
-         <TextArea value={output} readOnly className="font-mono text-xs leading-none bg-black" />
+         <TextArea 
+           value={output} 
+           readOnly 
+           className="font-mono text-xs leading-none bg-black text-neon-cyan whitespace-pre overflow-auto" 
+         />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+
 export * from './JsonFormatter';
 export * from './XmlFormatter';
 export * from './Converter';
@@ -8,3 +9,4 @@ export * from './JsonToJava';
 export * from './TextIcon';
 export * from './Base64Image';
 export * from './TimeConverter';
+export * from './IdCardGenerator';
